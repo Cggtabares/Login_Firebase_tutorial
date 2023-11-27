@@ -29,8 +29,7 @@ class LoginScreenViewModel : ViewModel() {
                     .addOnFailureListener { ex ->
                         // código cuando falla
                         // Tienes acceso a la excepción
-                        Log.d(
-                            "FB", "" +
+                        Log.d("FB", "" +
                                     "singInWithEmailAndPassword Falló!!!: ${ex.localizedMessage}"
                         )
                         //errorLogueo()
@@ -54,10 +53,12 @@ class LoginScreenViewModel : ViewModel() {
                         val displayName =
                             task.result.user?.email?.split("@")?.get(0)
                         createUser(displayName)
-                            home()
-                        }
-                    else{
-                        Log.d("LoginApp", "createUserWithemailAndPassword: ${task.result.toString()}")
+                        home()
+                    } else {
+                        Log.d(
+                            "LoginApp",
+                            "createUserWithemailAndPassword: ${task.result.toString()}"
+                        )
                     }
                     _loading.value = false
                 }
@@ -86,12 +87,20 @@ class LoginScreenViewModel : ViewModel() {
 
         FirebaseFirestore.getInstance().collection("users")
             .add(user)
-            .addOnSuccessListener { {
-                Log.d("AppLogin", "Creadp ${it.id}")
-            } }.addOnFailureListener{
+            .addOnSuccessListener {
+                {
+                    Log.d("AppLogin", "Creadp ${it.id}")
+                }
+            }.addOnFailureListener {
                 Log.d("AppLogin", "Error al crear usuario ${it}")
             }
 
+    }
+
+
+    fun signOutAccount() {
+        Firebase.auth.signOut()
+        Log.d("FB", "Ha salido satisfactoriamente")
     }
 
 }

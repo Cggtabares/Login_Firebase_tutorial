@@ -1,6 +1,7 @@
 package com.example.login_firebase_tutorial.navigation
 
 import androidx.compose.runtime.Composable
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -21,7 +22,7 @@ fun AppNavigation(){
             AppLoginScreen(navController = navController)
         }
         composable(AppScreens.AppHomeScreen.name){
-            Home(navController = navController)
+            Home(navController = navController, viewModel())
         }
     }
 }
